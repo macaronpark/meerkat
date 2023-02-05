@@ -1,18 +1,20 @@
 <script>
-  import { getMap } from "@api/map"
+  import { onMount } from "svelte";
+  import { createScene } from "./scene";
+  // import { getMap } from "@api/map"
+  import Header from "./Header.svelte";
 
-  let promise = getMap();
+  let el;
+  // let promise = getMap();
+
+  onMount(() => createScene(el));
 </script>
 
-<main>
-  {#await promise}
-    ...waiting
-  {:then {data}}
-    {JSON.stringify(data)}
-  {:catch error}
-    {error}
-  {/await}
-</main>
+<Header />
+<canvas bind:this={el} />
 
 <style>
+  canvas {
+    height: 100vh;
+  }
 </style>
